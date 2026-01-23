@@ -4,6 +4,12 @@
 
 public class OpenAccountHandler
 {
+    //private readonly IEmailSender _emailSender;
+    //public OpenAccountHandler(IEmailSender emailSender)
+    //{
+    //    _emailSender = emailSender;
+    //}
+
     public async Task<OpenAccountResult> HandleAsync(OpenAccountCommand command)
     {
         // TODO: Skapa användarkonto (ASP.NET Core Identity)
@@ -12,6 +18,7 @@ public class OpenAccountHandler
         //      Delegera till infrastructure
         // TODO: Skicka välkomstmail till kund
         //      Delegera till infrastructure
+        // _emailSender.Send("Ditt bankkonto är nu redo!");
 
         return new OpenAccountResult { 
             CustomerId = 1 

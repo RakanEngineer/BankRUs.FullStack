@@ -1,26 +1,28 @@
+using BankRUs.Api.Services;
 using BankRUs.Application.UseCases.OpenAccount;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the DI-container.
+//// Samma instans av CustomerService ska vara tillgänglig
+//// för samtliga klasser inom ett anrop.
+//// Varje request får sin egna instans av CustomerService
+//builder.Services.AddScoped<CustomerService>();
+
+// Det finns enbart en instans av CustomerService som delas
+// av alla komponenter i applikationen, över applikations livstid.
+builder.Services.AddSingleton<CustomerService>();
+
+//// Varje enskild komponent som begär en CustomerService får sin egna
+//// instans av denna.
+//builder.Services.AddTransient<CustomerService>();
+
+builder.Services.AddControllers();
 
 builder.Services.AddScoped<OpenAccountHandler>();
 
-builder.Services.AddControllers();
-// Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
-builder.Services.AddOpenApi();
-
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
-{
-    app.MapOpenApi();
-}
-
 app.UseHttpsRedirection();
-
-app.UseAuthorization();
 
 app.MapControllers();
 

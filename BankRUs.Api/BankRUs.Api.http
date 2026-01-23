@@ -1,5 +1,31 @@
 @BankRUs.Api_HostAddress = https://localhost:8000
 
+### Hämta kunder
+
+GET https://localhost:8000/api/customers
+Accept: application/json
+
+### Hämta kund
+
+GET https://localhost:8000/api/customers/1
+Accept: application/json
+
+### Radera kund
+
+DELETE https://localhost:8000/api/customers/4
+Accept: application/json
+
+### Skapa kund
+POST https://localhost:8000/api/customers
+Accept: application/json
+Content-Type: application/json
+
+{
+  "firstName": "Nisse",
+  "lastName": "Doe"
+}
+
+
 ### Öppna konto
 
 POST https://localhost:8000/api/accounts

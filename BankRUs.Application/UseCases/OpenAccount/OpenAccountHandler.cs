@@ -34,8 +34,10 @@ public class OpenAccountHandler
          ));
 
         // 3 - Skapa ett första bankkonto åt kunden
+
+        // TODO: Använd service för att generera ett kontonummer
         var bankAccount = new BankAccount(
-            accountNumber: "100.200.300",
+            accountNumber: "100.200.300",  // accountNumberGenerator.Generate()
             name: "Standardkonto",
             userId: createUserResult.UserId.ToString());
 

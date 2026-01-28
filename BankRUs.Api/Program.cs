@@ -1,6 +1,7 @@
 using BankRUs.Application.Identity;
 using BankRUs.Application.Repositories;
 using BankRUs.Application.UseCases.OpenAccount;
+using BankRUs.Application.UseCases.OpenBankAccount;
 using BankRUs.Intrastructure.Identity;
 using BankRUs.Intrastructure.Persistance;
 using BankRUs.Intrastructure.Repositories;
@@ -29,7 +30,9 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 
 builder.Services.AddControllers();
 
+// Command/Query handlers
 builder.Services.AddScoped<OpenAccountHandler>();
+builder.Services.AddScoped<OpenBankAccountHandler>();
 
 // Services
 builder.Services.AddScoped<IIdentityService, IdentityService>();

@@ -12,3 +12,13 @@ Content-Type: application/json
   "email": "jane@doe.com"
 }
 
+### Öppna bankkonto
+
+POST https://localhost:8000/api/bank-accounts
+Content-Type: application/json
+
+{
+  "userId": "",
+}
+
+

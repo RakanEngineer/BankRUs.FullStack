@@ -35,4 +35,20 @@ Content-Type: application/json
 
 GET https://localhost:8000/api/me
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI3NGEzYzJkMS0zNGRmLTRlNzYtOTMyNC03ZjA2ZGI0MzRiNTQiLCJlbWFpbCI6ImphbmVAZG9lLmNvbSIsInByZWZlcnJlZF91c2VybmFtZSI6ImphbmVAZG9lLmNvbSIsImh0dHA6Ly9zY2hlbWFzLm1pY3Jvc29mdC5jb20vd3MvMjAwOC8wNi9pZGVudGl0eS9jbGFpbXMvcm9sZSI6IkN1c3RvbWVyIiwiZXhwIjoxNzcwMDI3Mzc0LCJpc3MiOiJCYW5rUlVzLkFwaSIsImF1ZCI6IkJhbmtSVXMuQ2xpZW50In0.NKgTNZXSEDEt5bQaQr0ZediVmQ-m5lDbPmuW0Gd9gKc
+Authorization: Bearer 
+
+### FÖRST: Hämta alla bankkonton
+GET https://localhost:8000/api/bank-accounts
+
+### Deposit money
+
+POST https://localhost:8000/api/bank-accounts/21977071-3149-4eb2-84d0-487a407ca78d/deposits
+Content-Type: application/json
+
+{
+  "amount": 300.00,
+  "reference": "Salary January"
+}
+
+
+

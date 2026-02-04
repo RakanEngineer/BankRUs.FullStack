@@ -2,6 +2,8 @@
 using BankRUs.Application.UseCases.OpenBankAccount;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using BankRUs.Api.Dtos.Transactions;
+using BankRUs.Api.UseCases.Deposits;
 
 namespace BankRUs.Api.Controllers;
 
@@ -38,5 +40,21 @@ public class BankAccountsController : ControllerBase
             UserId: Guid.NewGuid());
 
         return Created(string.Empty, response);
+    }
+
+    // POST /api/bank-accounts/{bankAccountId}/deposits
+    [HttpPost("{bankAccountId}/deposits")]
+    public async Task<IActionResult> Deposit(Guid bankAccountId, [FromBody] DepositRequestDto request,
+        [FromServices] CreateDepositHandler handler)
+    {
+        if (!ModelState.IsValid)
+            return BadRequest(ModelState);
+
+        var result = await handler.Handle(bankAccountId, request);
+
+        if (result == null)
+            return NotFound();
+
+        return Created("", result);
     }
 }

@@ -1,3 +1,4 @@
+using BankRUs.Api.UseCases.Deposits;
 using BankRUs.Application.Authentication;
 using BankRUs.Application.Authentication.AuthenticateUser;
 using BankRUs.Application.Identity;
@@ -14,6 +15,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
+using System;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
@@ -111,8 +113,10 @@ builder.Services
 
 builder.Services.AddAuthorization();
 
-
 builder.Services.AddControllers();
+
+// Register Deposit Handler
+builder.Services.AddScoped<CreateDepositHandler>();
 
 var app = builder.Build();
 
@@ -123,7 +127,7 @@ if (app.Environment.IsDevelopment())
     var dbContext = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
 
     dbContext.Database.Migrate();
-
+    await SeedData.InitializeAsync(dbContext);
     await IdentitySeeder.SeedAsync(scope.ServiceProvider);
 }
 

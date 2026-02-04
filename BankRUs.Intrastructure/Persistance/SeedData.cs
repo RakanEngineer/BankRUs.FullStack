@@ -26,8 +26,8 @@ namespace BankRUs.Intrastructure.Persistance
             user.PasswordHash = new PasswordHasher<ApplicationUser>().HashPassword(user, "Password123!");
             context.Users.Add(user);
 
-            var account = await context.BankAccounts
-                .FirstOrDefaultAsync(x => x.UserId == user.Id);
+            //var account = await context.BankAccounts
+            //    .FirstOrDefaultAsync(x => x.UserId == user.Id);
 
             var bankAccount = new BankAccount(
                 accountNumber: "1234567890",

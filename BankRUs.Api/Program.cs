@@ -1,3 +1,4 @@
+using BankRUs.Api.UseCases.Customers;
 using BankRUs.Api.UseCases.Deposits;
 using BankRUs.Api.UseCases.Transactions;
 using BankRUs.Application.Authentication;
@@ -121,6 +122,10 @@ builder.Services.AddScoped<CreateDepositHandler>();
 
 // Register Get Transactions Handler
 builder.Services.AddScoped<GetTransactionsHandler>();
+
+// Register Customer Handlers
+builder.Services.AddScoped<GetCustomersHandler>();
+builder.Services.AddScoped<GetCustomerByIdHandler>();
 
 var app = builder.Build();
 

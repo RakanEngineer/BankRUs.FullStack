@@ -50,5 +50,8 @@ Content-Type: application/json
   "reference": "Salary January"
 }
 
+#############################################
+### US07 - List Transactions
+#############################################
 
-
+GET https://localhost:8000/api/bank-accounts/21977071-3149-4eb2-84d0-487a407ca78d/transactions?page=1&pageSize=5&sort=desc

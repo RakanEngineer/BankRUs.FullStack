@@ -1,9 +1,10 @@
 ﻿using BankRUs.Api.Dtos.BankAccounts;
+using BankRUs.Api.Dtos.Transactions;
+using BankRUs.Api.UseCases.Deposits;
+using BankRUs.Api.UseCases.Transactions;
 using BankRUs.Application.UseCases.OpenBankAccount;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using BankRUs.Api.Dtos.Transactions;
-using BankRUs.Api.UseCases.Deposits;
 
 namespace BankRUs.Api.Controllers;
 
@@ -57,4 +58,32 @@ public class BankAccountsController : ControllerBase
 
         return Created("", result);
     }
+
+    // GET /api/bank-accounts/{bankAccountId}/transactions
+    [HttpGet("{bankAccountId}/transactions")]
+    public async Task<IActionResult> GetTransactions(
+        Guid bankAccountId,
+        [FromServices] GetTransactionsHandler handler,        
+        int page = 1,
+        int pageSize = 20,
+        string sort = "desc",
+        string? type = null,
+        DateTime? from = null,
+        DateTime? to = null)
+    {
+        var result = await handler.Handle(
+            bankAccountId,
+            page,
+            pageSize,
+            sort,
+            type,
+            from,
+            to);
+
+        if (result == null)
+            return NotFound();
+
+        return Ok(result);
+    }
+
 }

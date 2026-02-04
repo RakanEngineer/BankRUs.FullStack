@@ -40,7 +40,9 @@ Authorization: Bearer
 ### FÖRST: Hämta alla bankkonton
 GET https://localhost:8000/api/bank-accounts
 
+#############################################
 ### Deposit money
+#############################################
 
 POST https://localhost:8000/api/bank-accounts/21977071-3149-4eb2-84d0-487a407ca78d/deposits
 Content-Type: application/json
@@ -49,6 +51,19 @@ Content-Type: application/json
   "amount": 300.00,
   "reference": "Salary January"
 }
+
+#############################################
+### Withdraw money
+#############################################
+
+POST https://localhost:8000/api/bank-accounts/21977071-3149-4eb2-84d0-487a407ca78d/withdrawals
+Content-Type: application/json
+
+{
+  "amount": 100.00,
+  "reference": "ATM Withdrawal"
+}
+
 
 
 

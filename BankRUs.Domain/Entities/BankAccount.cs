@@ -1,5 +1,6 @@
 ﻿
 using System.ComponentModel.DataAnnotations;
+using System.Security.Principal;
 
 namespace BankRUs.Domain.Entities;
 
@@ -59,7 +60,30 @@ public class BankAccount
         Transactions.Add(transaction);
         return transaction;
     }
-    public void Withdraw(decimal amount, string reference) { }
+    public void Withdraw(decimal amount, string reference) 
+    { 
+        if (amount <= 0)
+            throw new ArgumentException("Amount must be greater than zero.", nameof(amount));
+
+        if (IsLocked)
+            throw new InvalidOperationException("Cannot withdraw from a locked account.");
+
+        if (amount > Balance)
+            //throw new InvalidOperationException("Insufficient funds for withdrawal.");
+            throw new InvalidOperationException($"Account balance is {Balance} but withdrawal amount is {amount}");
+
+        Balance -= amount;
+
+        var transaction = new Transaction(
+            bankAccountId: Id,
+            type: "withdrawal",
+            amount: amount,
+            reference: reference,
+            balanceAfter: Balance
+            );
+
+        Transactions.Add(transaction);
+    }
 }
 
 // Konstruktor

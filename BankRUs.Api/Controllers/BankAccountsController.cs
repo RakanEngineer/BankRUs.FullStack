@@ -1,9 +1,10 @@
 ﻿using BankRUs.Api.Dtos.BankAccounts;
+using BankRUs.Api.Dtos.Transactions;
+using BankRUs.Api.UseCases.Deposits;
+using BankRUs.Api.UseCases.Withdrawals;
 using BankRUs.Application.UseCases.OpenBankAccount;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using BankRUs.Api.Dtos.Transactions;
-using BankRUs.Api.UseCases.Deposits;
 
 namespace BankRUs.Api.Controllers;
 
@@ -56,5 +57,29 @@ public class BankAccountsController : ControllerBase
             return NotFound();
 
         return Created("", result);
+    }
+
+    [HttpPost("{bankAccountId}/withdrawals")]
+    public async Task<IActionResult> Withdraw(Guid bankAccountId, CreateWithdrawalRequestDto dto,
+        [FromServices] CreateWithdrawalHandler handler)
+    {
+        try
+        {
+            var result = await handler.Handle(bankAccountId, dto);
+
+            if (result == null)
+                return NotFound();
+
+            return Created("", result);
+        }
+        catch (InvalidOperationException ex)
+        {
+            return Conflict(new ProblemDetails
+            {
+                Title = "Insufficient funds",
+                Status = 409,
+                Detail = ex.Message
+            });
+        }
     }
 }

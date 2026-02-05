@@ -21,7 +21,9 @@ Content-Type: application/json
   "userId": "",
 }
 
-### Logga in / Autentisera
+#############################################
+### Login Customer ### Logga in / Autentisera
+#############################################
 
 POST https://localhost:8000/api/auth/login
 Content-Type: application/json
@@ -71,11 +73,24 @@ Content-Type: application/json
 #############################################
 ### Get Customers Only (CustomerService)
 #############################################
-
 GET https://localhost:8000/api/customers?page=1&pageSize=10
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxNWU4OWZiOS05ZjVjLTRhNDYtOTdjYy1jOTJkODRkZTA2NmUiLCJlbWFpbCI6ImN1c3RvbWVyc2VydmljZUBiYW5rLmNvbSIsInByZWZlcnJlZF91c2VybmFtZSI6ImN1c3RvbWVyc2VydmljZUBiYW5rLmNvbSIsImh0dHA6Ly9zY2hlbWFzLm1pY3Jvc29mdC5jb20vd3MvMjAwOC8wNi9pZGVudGl0eS9jbGFpbXMvcm9sZSI6IkN1c3RvbWVyU2VydmljZSIsImV4cCI6MTc3MDI2MTQzMSwiaXNzIjoiQmFua1JVcy5BcGkiLCJhdWQiOiJCYW5rUlVzLkNsaWVudCJ9.87SybRT81JDkcOy1-_UA34nJR__o8qkY-dOjXLZ0VLc
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxNWU4OWZiOS05ZjVjLTRhNDYtOTdjYy1jOTJkODRkZTA2NmUiLCJlbWFpbCI6ImN1c3RvbWVyc2VydmljZUBiYW5rLmNvbSIsInByZWZlcnJlZF91c2VybmFtZSI6ImN1c3RvbWVyc2VydmljZUBiYW5rLmNvbSIsImh0dHA6Ly9zY2hlbWFzLm1pY3Jvc29mdC5jb20vd3MvMjAwOC8wNi9pZGVudGl0eS9jbGFpbXMvcm9sZSI6IkN1c3RvbWVyU2VydmljZSIsImV4cCI6MTc3MDI5NDE2MCwiaXNzIjoiQmFua1JVcy5BcGkiLCJhdWQiOiJCYW5rUlVzLkNsaWVudCJ9.3alcghOXepgVwqjrdrfXa37PQjgb4SLrUjbcUrRKq9Y
 
-### 
-
+############################################# 
+### Get Customers by SSN (CustomerService)
+#############################################
 GET https://localhost:8000/api/customers?ssn=19900101&page=1&pageSize=10
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxNWU4OWZiOS05ZjVjLTRhNDYtOTdjYy1jOTJkODRkZTA2NmUiLCJlbWFpbCI6ImN1c3RvbWVyc2VydmljZUBiYW5rLmNvbSIsInByZWZlcnJlZF91c2VybmFtZSI6ImN1c3RvbWVyc2VydmljZUBiYW5rLmNvbSIsImh0dHA6Ly9zY2hlbWFzLm1pY3Jvc29mdC5jb20vd3MvMjAwOC8wNi9pZGVudGl0eS9jbGFpbXMvcm9sZSI6IkN1c3RvbWVyU2VydmljZSIsImV4cCI6MTc3MDI2MTQzMSwiaXNzIjoiQmFua1JVcy5BcGkiLCJhdWQiOiJCYW5rUlVzLkNsaWVudCJ9.87SybRT81JDkcOy1-_UA34nJR__o8qkY-dOjXLZ0VLc
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxNWU4OWZiOS05ZjVjLTRhNDYtOTdjYy1jOTJkODRkZTA2NmUiLCJlbWFpbCI6ImN1c3RvbWVyc2VydmljZUBiYW5rLmNvbSIsInByZWZlcnJlZF91c2VybmFtZSI6ImN1c3RvbWVyc2VydmljZUBiYW5rLmNvbSIsImh0dHA6Ly9zY2hlbWFzLm1pY3Jvc29mdC5jb20vd3MvMjAwOC8wNi9pZGVudGl0eS9jbGFpbXMvcm9sZSI6IkN1c3RvbWVyU2VydmljZSIsImV4cCI6MTc3MDI5NDE2MCwiaXNzIjoiQmFua1JVcy5BcGkiLCJhdWQiOiJCYW5rUlVzLkNsaWVudCJ9.3alcghOXepgVwqjrdrfXa37PQjgb4SLrUjbcUrRKq9Y
+
+#############################################
+### Update Customer (Customer)
+#############################################
+
+PATCH https://localhost:8000/api/customers
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJkYzc0YjM0Ni0wOTY2LTQxMWYtOGNjOS1kMjdmZWNmYzA5ZDQiLCJlbWFpbCI6ImphbmVAZG9lLmNvbSIsInByZWZlcnJlZF91c2VybmFtZSI6ImphbmVAZG9lLmNvbSIsImh0dHA6Ly9zY2hlbWFzLm1pY3Jvc29mdC5jb20vd3MvMjAwOC8wNi9pZGVudGl0eS9jbGFpbXMvcm9sZSI6IkN1c3RvbWVyIiwiZXhwIjoxNzcwMjk0MjgzLCJpc3MiOiJCYW5rUlVzLkFwaSIsImF1ZCI6IkJhbmtSVXMuQ2xpZW50In0.FEg70OeT3wrWH__PJbxLs8yGyja3GLsZJH3SwVCYR1k
+Content-Type: application/json
+
+{
+  "firstName": "Jane444",
+  "lastName": "Doe444"
+}

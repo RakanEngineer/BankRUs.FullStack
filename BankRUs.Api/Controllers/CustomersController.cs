@@ -9,7 +9,6 @@ namespace BankRUs.Api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize(Roles = Roles.CustomerService)]
     public class CustomersController : ControllerBase
     {
         private readonly GetCustomersHandler _handler;
@@ -30,6 +29,7 @@ namespace BankRUs.Api.Controllers
         //    return Ok(result);
         //}
 
+        [Authorize(Roles = Roles.CustomerService)]
         // GET /api/customers/{id}
         [HttpGet("{id}")]
         public async Task<IActionResult> GetCustomerById(
@@ -44,6 +44,7 @@ namespace BankRUs.Api.Controllers
             return Ok(result);
         }
 
+        [Authorize(Roles = Roles.CustomerService)]
         // GET /api/customers?ssn=19900101&page=1&pageSize=20
         [HttpGet]
         public async Task<IActionResult> GetCustomers(
@@ -56,6 +57,20 @@ namespace BankRUs.Api.Controllers
             var result = await _handler.Handle(query);
 
             return Ok(result); 
-        }       
+        }
+
+        [Authorize(Roles = Roles.Customer)]
+        [HttpPatch]
+        public async Task<IActionResult> UpdateCustomer(
+            [FromBody] UpdateAccountDetailsCommand command,
+            [FromServices] UpdateAccountDetailsHandler handler)
+        {
+            var success = await handler.Handle(command);
+
+            if (!success)
+                return BadRequest();
+
+            return NoContent();
+        }
     }
 }

@@ -127,6 +127,10 @@ builder.Services.AddScoped<GetTransactionsHandler>();
 builder.Services.AddScoped<GetCustomersHandler>();
 builder.Services.AddScoped<GetCustomerByIdHandler>();
 
+// Register Update Account Details Handler
+builder.Services.AddScoped<UpdateAccountDetailsHandler>();
+builder.Services.AddHttpContextAccessor();
+
 var app = builder.Build();
 
 if (app.Environment.IsDevelopment())

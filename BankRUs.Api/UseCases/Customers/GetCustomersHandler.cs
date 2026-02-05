@@ -67,5 +67,52 @@ namespace BankRUs.Api.UseCases.Customers
                 }).ToList()
             };
         }
+
+        public async Task<PagedResponseDto<CustomerItemDto>> Handle(GetCustomerQuery query)
+        {
+            var page = query.Page < 1 ? 1 : query.Page;
+            var pageSize = query.PageSize > _maxPageSize ? _maxPageSize : query.PageSize;
+
+            var customerRoleId = await _context.Roles
+                .Where(r => r.Name == Roles.Customer)
+                .Select(r => r.Id)
+                .SingleAsync();
+
+            var customersQuery =
+                from user in _context.Users
+                join userRole in _context.UserRoles on user.Id equals userRole.UserId
+                where userRole.RoleId == customerRoleId
+                select user;
+
+            if (!string.IsNullOrWhiteSpace(query.Ssn))
+            {
+                customersQuery = customersQuery
+                    .Where(u => u.SocialSecurityNumber.StartsWith(query.Ssn));
+            }
+
+            var totalItems = await customersQuery.CountAsync();
+
+            var customers = await customersQuery
+                .OrderBy(u => u.FirstName)
+                .Skip((page - 1) * pageSize)
+                .Take(pageSize)
+                .Select(u => new CustomerItemDto
+                {
+                    Id = u.Id,
+                    FirstName = u.FirstName,
+                    LastName = u.LastName,
+                    Email = u.Email
+                })
+                .ToListAsync();
+
+            return new PagedResponseDto<CustomerItemDto>
+            {
+                Data = customers,
+                Page = page,
+                PageSize = pageSize,
+                TotalItems = totalItems,
+                TotalPages = (int)Math.Ceiling(totalItems / (double)pageSize)
+            };
+        }
     }
 }

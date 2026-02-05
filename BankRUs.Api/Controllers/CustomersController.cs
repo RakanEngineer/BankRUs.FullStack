@@ -1,25 +1,36 @@
 ﻿using BankRUs.Api.UseCases.Customers;
+using BankRUs.Application.Identity;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System.Reflection.Metadata;
 
 namespace BankRUs.Api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize(Roles = "CustomerService")]
+    [Authorize(Roles = Roles.CustomerService)]
     public class CustomersController : ControllerBase
     {
-        [HttpGet]
-        public async Task<IActionResult> GetCustomers(
-        [FromServices] GetCustomersHandler handler,
-        int page = 1,
-        int pageSize = 20)
+        private readonly GetCustomersHandler _handler;
+        public CustomersController(GetCustomersHandler handler)
         {
-            var result = await handler.Handle(page, pageSize);
-            return Ok(result);
+            _handler = handler;
         }
 
+        // GET /api/customers?page=1&pageSize=20
+        //[HttpGet]
+        //public async Task<IActionResult> GetCustomers(
+        //[FromServices] GetCustomersHandler handler,
+        //int page = 1,
+        //int pageSize = 20,
+        //[FromQuery] string? ssn = null)
+        //{
+        //    var result = await handler.Handle(page, pageSize);
+        //    return Ok(result);
+        //}
+
+        // GET /api/customers/{id}
         [HttpGet("{id}")]
         public async Task<IActionResult> GetCustomerById(
             string id,
@@ -32,5 +43,19 @@ namespace BankRUs.Api.Controllers
 
             return Ok(result);
         }
+
+        // GET /api/customers?ssn=19900101&page=1&pageSize=20
+        [HttpGet]
+        public async Task<IActionResult> GetCustomers(
+            [FromQuery] int page = 1,
+            [FromQuery] int pageSize = 20,
+            [FromQuery] string? ssn = null)
+        {
+            var query = new GetCustomerQuery(page, pageSize, ssn);
+
+            var result = await _handler.Handle(query);
+
+            return Ok(result); 
+        }       
     }
 }

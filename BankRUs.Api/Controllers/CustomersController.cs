@@ -4,6 +4,8 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Reflection.Metadata;
+using System.Security.Claims;
+using static BankRUs.Api.UseCases.Customers.DeleteCustomer;
 
 namespace BankRUs.Api.Controllers
 {
@@ -69,6 +71,34 @@ namespace BankRUs.Api.Controllers
 
             if (!success)
                 return BadRequest();
+
+            return NoContent();
+        }
+
+        //[Authorize(Roles = Roles.Customer)]
+        [HttpDelete("/api/me")]
+        public async Task<IActionResult> DeleteMe([FromServices] DeleteCustomerHandler handler)
+        {
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+            var success = await handler.Handle(
+                new DeleteCustomerCommand(userId!));
+
+            if (!success)
+                return NotFound();
+
+            return NoContent();
+        }
+
+        [Authorize(Roles = Roles.CustomerService)]
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteCustomer(string id, [FromServices] DeleteCustomerHandler handler)
+        {
+            var success = await handler.Handle(
+                new DeleteCustomerCommand(id));
+
+            if (!success)
+                return NotFound();
 
             return NoContent();
         }

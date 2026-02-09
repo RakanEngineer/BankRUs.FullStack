@@ -80,7 +80,7 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxNWU4OWZiO
 ### Get Customers by SSN (CustomerService)
 #############################################
 GET https://localhost:8000/api/customers?ssn=19900101&page=1&pageSize=10
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxNWU4OWZiOS05ZjVjLTRhNDYtOTdjYy1jOTJkODRkZTA2NmUiLCJlbWFpbCI6ImN1c3RvbWVyc2VydmljZUBiYW5rLmNvbSIsInByZWZlcnJlZF91c2VybmFtZSI6ImN1c3RvbWVyc2VydmljZUBiYW5rLmNvbSIsImh0dHA6Ly9zY2hlbWFzLm1pY3Jvc29mdC5jb20vd3MvMjAwOC8wNi9pZGVudGl0eS9jbGFpbXMvcm9sZSI6IkN1c3RvbWVyU2VydmljZSIsImV4cCI6MTc3MDI5NDE2MCwiaXNzIjoiQmFua1JVcy5BcGkiLCJhdWQiOiJCYW5rUlVzLkNsaWVudCJ9.3alcghOXepgVwqjrdrfXa37PQjgb4SLrUjbcUrRKq9Y
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxNWU4OWZiOS05ZjVjLTRhNDYtOTdjYy1jOTJkODRkZTA2NmUiLCJlbWFpbCI6ImN1c3RvbWVyc2VydmljZUBiYW5rLmNvbSIsInByZWZlcnJlZF91c2VybmFtZSI6ImN1c3RvbWVyc2VydmljZUBiYW5rLmNvbSIsImh0dHA6Ly9zY2hlbWFzLm1pY3Jvc29mdC5jb20vd3MvMjAwOC8wNi9pZGVudGl0eS9jbGFpbXMvcm9sZSI6IkN1c3RvbWVyU2VydmljZSIsImV4cCI6MTc3MDY0MzA3MSwiaXNzIjoiQmFua1JVcy5BcGkiLCJhdWQiOiJCYW5rUlVzLkNsaWVudCJ9.hdCM_n1m-yqE3nL8UsTJ6w2zKE6tiQ5lOXyrPuoE5RU
 
 #############################################
 ### Update Customer (Customer)
@@ -94,3 +94,15 @@ Content-Type: application/json
   "firstName": "Jane444",
   "lastName": "Doe444"
 }
+
+#############################################
+### Soft Delete Customer (CustomerService)
+#############################################
+DELETE https://localhost:8000/api/customers/49e42959-e35a-41be-8cec-2be9500c088e
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxNWU4OWZiOS05ZjVjLTRhNDYtOTdjYy1jOTJkODRkZTA2NmUiLCJlbWFpbCI6ImN1c3RvbWVyc2VydmljZUBiYW5rLmNvbSIsInByZWZlcnJlZF91c2VybmFtZSI6ImN1c3RvbWVyc2VydmljZUBiYW5rLmNvbSIsImh0dHA6Ly9zY2hlbWFzLm1pY3Jvc29mdC5jb20vd3MvMjAwOC8wNi9pZGVudGl0eS9jbGFpbXMvcm9sZSI6IkN1c3RvbWVyU2VydmljZSIsImV4cCI6MTc3MDY0NTQ5MywiaXNzIjoiQmFua1JVcy5BcGkiLCJhdWQiOiJCYW5rUlVzLkNsaWVudCJ9.te3qBHW_MFUaRmBmuDtoGUTKDbORO08Lg5cHYOEz9mM
+
+#############################################
+### Soft Delete me (Customer)
+#############################################
+DELETE https://localhost:8000/api/me
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJkYzc0YjM0Ni0wOTY2LTQxMWYtOGNjOS1kMjdmZWNmYzA5ZDQiLCJlbWFpbCI6ImphbmVAZG9lLmNvbSIsInByZWZlcnJlZF91c2VybmFtZSI6ImphbmVAZG9lLmNvbSIsImh0dHA6Ly9zY2hlbWFzLm1pY3Jvc29mdC5jb20vd3MvMjAwOC8wNi9pZGVudGl0eS9jbGFpbXMvcm9sZSI6IkN1c3RvbWVyIiwiZXhwIjoxNzcwNjQ0MjY0LCJpc3MiOiJCYW5rUlVzLkFwaSIsImF1ZCI6IkJhbmtSVXMuQ2xpZW50In0.h0bKwTJBIeXnhvLsxp7cmTUFwyd8Kzjfgl3sbVUkU_A

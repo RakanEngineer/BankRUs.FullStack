@@ -131,6 +131,9 @@ builder.Services.AddScoped<GetCustomerByIdHandler>();
 builder.Services.AddScoped<UpdateAccountDetailsHandler>();
 builder.Services.AddHttpContextAccessor();
 
+// Delete Customer Handler
+builder.Services.AddScoped<DeleteCustomerHandler>();
+
 var app = builder.Build();
 
 if (app.Environment.IsDevelopment())

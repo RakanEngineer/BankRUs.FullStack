@@ -17,6 +17,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
+using Scalar.AspNetCore;
 using System;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
@@ -134,6 +135,20 @@ builder.Services.AddHttpContextAccessor();
 // Delete Customer Handler
 builder.Services.AddScoped<DeleteCustomerHandler>();
 
+// Register OpenAPI-documentation.
+builder.Services.AddOpenApi(options =>
+{
+    options.AddDocumentTransformer((document, context, cancellationToken) =>
+    {
+        document.Info.Title = "BankRUs API";
+        document.Info.Description = "Public BankRUs API";
+        document.Info.Version = "v1";
+        return Task.CompletedTask;
+    });
+});
+builder.Services.AddEndpointsApiExplorer();
+
+
 var app = builder.Build();
 
 if (app.Environment.IsDevelopment())
@@ -145,6 +160,17 @@ if (app.Environment.IsDevelopment())
     dbContext.Database.Migrate();
     await SeedData.InitializeAsync(dbContext);
     await IdentitySeeder.SeedAsync(scope.ServiceProvider);
+
+    // Swagger/OpenAPI
+    // https://localhost:8000/openapi/v1.json
+    app.MapOpenApi(); // Swagger/OpenAPI
+
+    // Scalar
+    // https://localhost:8000/scalar
+    app.MapScalarApiReference(options =>
+    {
+        options.Title = "BankRUs API =D";
+    });
 }
 
 app.UseHttpsRedirection();
